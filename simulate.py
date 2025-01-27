@@ -10,7 +10,7 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 p.setGravity(0,0,-9.8) #responsible for determining what forces exist in our world. The first, most obvious one to add is gravity. 
 planeId = p.loadURDF("plane.urdf") # add floor
-p.loadSDF("box.sdf") #tells pybullet to read in the world described in box.sdf.
+p.loadSDF("boxes.sdf") #tells pybullet to read in the world described in box.sdf.
 for i in range(1000):
     print(i)
     p.stepSimulation()
