@@ -9,27 +9,26 @@ x = 0
 y = 0
 z = .5
 
-#  tell pyrosim the name of the file where information about the world you're about to create should be stored. 
-pyrosim.Start_SDF("boxes.sdf")
+def Create_World():
+    #  tell pyrosim the name of the file where information about the world you're about to create should be stored. 
+    pyrosim.Start_SDF("world.sdf")
+    # stores a box with initial position x=0, y=0, z=0.5, and length, width and height all equal to 1 meter, in box.sdf.
+    pyrosim.Send_Cube(name="Box", pos=[x - 5,y + 5,z] , size=[length,width,height])
 
-# stores a box with initial position x=0, y=0, z=0.5, and length, width and height all equal to 1 meter, in box.sdf.
+    pyrosim.End() 
 
-# pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
+def Create_Robot():
+    pyrosim.Start_URDF("body.urdf")
+    pyrosim.Send_Cube(name="BackLeg", pos=[x,y,z] , size=[length,width,height])
+    pyrosim.Send_Cube(name="Torso", pos=[1,0,0.5] , size=[length,width,height])
+    pyrosim.Send_Cube(name="FrontLeg", pos=[2,0,-1.5] , size=[length,width,height])
+    pyrosim.Send_Joint(name = "BackLeg_Torso" , parent= "BackLeg" , child = "Torso" , type = "revolute", position = [0,0,1])
+    pyrosim.Send_Joint(name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0,0,1])
+    pyrosim.End()
 
-for x in range(5):
-    length = 1
-    width = 1
-    height = 1
-    for y in range(5):
-        length = 1
-        width = 1
-        height = 1
-        for i in range(10):
-            # i *= .5
-            length = length * 0.9
-            width = width * 0.9
-            height = height * 0.9
-            pyrosim.Send_Cube(name="Box", pos=[x,y,z + (i * .9) ] , size=[length,width,height])
+def main():
+    Create_World()
+    Create_Robot()
 
-
-pyrosim.End()
+if __name__ == "__main__":
+    main()
