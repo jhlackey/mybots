@@ -12,7 +12,7 @@ p.setGravity(0,0,-9.8) #responsible for determining what forces exist in our wor
 planeId = p.loadURDF("plane.urdf") # add floor
 robotId = p.loadURDF("body.urdf")
 p.loadSDF("world.sdf") #tells pybullet to read in the world described in box.sdf.
-for i in range(1000):
+for i in range(10000):
     print(i)
     p.stepSimulation()
     time.sleep(SLEEP_CONSTANT)
