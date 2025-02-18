@@ -6,6 +6,13 @@ import pyrosim.pyrosim as pyrosim
 import random
 
 SLEEP_CONSTANT = 1/60
+BackLeg_amplitude = numpy.pi / 4
+BackLeg_frequency = 2 * numpy.pi / 100
+BackLeg_phaseOffset = 0
+
+FrontLeg_amplitude = numpy.pi / 4
+FrontLeg_frequency = 10 * numpy.pi / 100
+FrontLeg_phaseOffset = 0
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -23,16 +30,25 @@ frontLegSensorValues = numpy.zeros(1000)
 def random_range(min, max):
     return (max - min) * random.random() + min
 
-targetAngles = numpy.sin(numpy.linspace(0, 2 * numpy.pi, 1000))
+BackLeg_targetAngles = numpy.sin(numpy.linspace(0, 2 * numpy.pi, 1000)) # create 1000 values in sin wave
+FrontLeg_targetAngles = numpy.sin(numpy.linspace(0, 2 * numpy.pi, 1000)) # create 1000 values in sin wave
+
+for i in range(1000):
+    BackLeg_targetAngles[i] = BackLeg_amplitude * numpy.sin(BackLeg_frequency * i + BackLeg_phaseOffset)
+    FrontLeg_targetAngles[i] = FrontLeg_amplitude * numpy.sin(FrontLeg_frequency * i + FrontLeg_phaseOffset)
 
 def scale_to_range(arr, min_range, max_range):
       min_val = numpy.min(arr)
       max_val = numpy.max(arr)
       return ((arr - min_val) / (max_val - min_val)) * (max_range - min_range) + min_range
 
-targetAngles = scale_to_range(targetAngles, -numpy.pi/4, numpy.pi/4)
+BackLeg_targetAngles = scale_to_range(BackLeg_targetAngles, -numpy.pi/4, numpy.pi/4) # scale to radians
+FrontLeg_targetAngles = scale_to_range(FrontLeg_targetAngles, -numpy.pi/4, numpy.pi/4) # scale to radians
 
-numpy.save('data/targetAngles.npy', targetAngles)
+numpy.save('data/BackLeg_targetAngles.npy', BackLeg_targetAngles)
+numpy.save('data/FrontLeg_targetAngles.npy', FrontLeg_targetAngles)
+
+# exit()
 for i in range(1000):
     print(i)
     p.stepSimulation()
@@ -48,14 +64,14 @@ for i in range(1000):
     bodyIndex = robotId,
     jointName = b'Torso_BackLeg',
     controlMode = p.POSITION_CONTROL,
-    targetPosition = random_range(-numpy.pi/8, numpy.pi/8),
+    targetPosition = BackLeg_targetAngles[i],
     maxForce = 500)
 
     pyrosim.Set_Motor_For_Joint(
     bodyIndex = robotId,
     jointName = b'Torso_FrontLeg',
     controlMode = p.POSITION_CONTROL,
-    targetPosition =  random_range(-numpy.pi/8, numpy.pi/8),
+    targetPosition =  FrontLeg_targetAngles[i],
     maxForce = 500)
 
     time.sleep(SLEEP_CONSTANT)
