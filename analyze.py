@@ -4,8 +4,10 @@ import os
 
 # backLegSensorValues = numpy.load('data/backLegSensorValues.npy')
 # frontLegSensorValues = numpy.load('data/frontLegSensorValues.npy')
-targetAngles = numpy.load('data/targetAngles.npy')
-pyplot.plot(targetAngles)
+FrontLeg_targetAngles = numpy.load('data/FrontLeg_targetAngles.npy')
+BackLeg_targetAngles = numpy.load('data/BackLeg_targetAngles.npy')
+pyplot.plot(FrontLeg_targetAngles)
+pyplot.plot(BackLeg_targetAngles)
 
 # pyplot.plot(backLegSensorValues, label='BackLeg', lw=3)
 # pyplot.plot(frontLegSensorValues, label='FrontLeg',)

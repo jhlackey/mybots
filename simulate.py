@@ -6,13 +6,13 @@ import pyrosim.pyrosim as pyrosim
 import random
 
 SLEEP_CONSTANT = 1/60
-BackLeg_amplitude = numpy.pi / 4
-BackLeg_frequency = 2 * numpy.pi / 100
-BackLeg_phaseOffset = 0
+BackLeg_amplitude = numpy.pi / 2
+BackLeg_frequency = 7 * numpy.pi / 100
+BackLeg_phaseOffset = 5
 
 FrontLeg_amplitude = numpy.pi / 4
-FrontLeg_frequency = 10 * numpy.pi / 100
-FrontLeg_phaseOffset = 0
+FrontLeg_frequency = 12 * numpy.pi / 100
+FrontLeg_phaseOffset = 10
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
