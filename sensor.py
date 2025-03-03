@@ -25,7 +25,7 @@ class SENSOR:
                 f"Warning: No valid sensor value for link {self.linkName} at timestep {timestep}. Assigning default value 0.")
             sensor_value = 0  # Assign a default value (e.g., 0) in case of None
 
-        print(sensor_value, " : " , timestep)
+        # print(sensor_value, " : " , timestep)
 
         self.values[timestep] = sensor_value
 
