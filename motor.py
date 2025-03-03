@@ -30,10 +30,10 @@ class MOTOR:
         self.motorValues = c.scale_to_range(self.motorValues,-numpy.pi/4, numpy.pi/4)
         print(self.motorValues)
 
-    def Set_Value(self, robotId, timestep):
+    def Set_Value(self, robotId, desiredAngle):
         pyrosim.Set_Motor_For_Joint(
             bodyIndex = robotId,
             jointName = self.jointName,
             controlMode = p.POSITION_CONTROL,
-            targetPosition = self.motorValues[timestep],
+            targetPosition = desiredAngle,
             maxForce = 500)

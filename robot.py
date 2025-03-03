@@ -44,16 +44,17 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self, timestep):
-
         for neuronName in self.nn.Get_Neuron_Names(): # Step 57
             if self.nn.Is_Motor_Neuron(neuronName):
-                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName).encode("utf-8")
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
-                # jointName.Set_Value(self.robotId, desiredAngle)
+                # print(self.motors)
+                self.motors[jointName].Set_Value(self.robotId, desiredAngle)
+                jointName = jointName.decode('utf-8')
                 print(jointName, neuronName, desiredAngle)
 
-        for motor in self.motors.values():
-            motor.Set_Value(self.robotId, timestep)
+        # for motor in self.motors.values():
+        #     motor.Set_Value(self.robotId, timestep)
 
     def Save_Values(self, filepath, arr):
         numpy.save(filepath, arr)
