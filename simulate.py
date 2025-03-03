@@ -11,20 +11,6 @@ from simulation import SIMULATION
 simulation = SIMULATION() # create an object -- an instance of the SIMULATION class -- called simulation.
 simulation.Run()
 
-# physicsClient = p.connect(p.GUI)
-# p.setAdditionalSearchPath(pybullet_data.getDataPath())
-# p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
-#
-# p.setGravity(0,0,-9.8) #responsible for determining what forces exist in our world. The first, most obvious one to add is gravity.
-# planeId = p.loadURDF("plane.urdf") # add floor
-# robotId = p.loadURDF("body.urdf")
-# p.loadSDF("world.sdf") #tells pybullet to read in the world described in box.sdf.
-# pyrosim.Prepare_To_Simulate(robotId)
-#
-# # unsure if need to move to constants
-# backLegSensorValues = numpy.zeros(1000)
-# frontLegSensorValues = numpy.zeros(1000)
-#
 # def random_range(min, max):
 #     return (max - min) * random.random() + min
 #
