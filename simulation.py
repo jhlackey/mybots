@@ -10,13 +10,13 @@ import random
 
 class SIMULATION:
     def __init__(self):
-
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
         p.setGravity(0, 0, -9.8)  # responsible for determining what forces exist in our world. The first, most obvious one to add is gravity.
-
-        self.robot = ROBOT() # load body urdf ... creates robot in body urdf file.
+        p.loadSDF("world.sdf")
+        self.planeId = p.loadURDF("plane.urdf")
+        self.robot = ROBOT(2,2) # load body urdf ... creates robot in body urdf file.
         self.world = WORLD() # load plane and world urdf .. i.e place block and checkered ground
 
     def Run(self):
