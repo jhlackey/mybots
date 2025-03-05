@@ -16,6 +16,8 @@ class NEURAL_NETWORK:
 
             self.Digest(line)
 
+        # print(self.synapses) step 15
+        # exit()
         f.close()
 
     def Print(self):
@@ -33,8 +35,8 @@ class NEURAL_NETWORK:
             if self.neurons[neuronName].Is_Sensor_Neuron():
                 self.neurons[neuronName].Update_Sensor_Neuron()
             else:
-                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron()
-
+                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
+        # exit()
 
 # ---------------- Private methods --------------------------------------
     def Get_Motor_Neurons_Joint(self, neuronName):
