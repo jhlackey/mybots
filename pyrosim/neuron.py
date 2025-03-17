@@ -78,14 +78,20 @@ class NEURON:
         print('currently-updating neuron', self.Get_Name())
         for key in synapses.keys():
             if(key[1] == self.Get_Name()):
+                # print(f'pre-synaptic neuron %s', key[0])
                 self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[0]].Get_Value())
-                print(f'pre-synaptic neuron %s', key[0])
-                print(f'post-synaptic neuron %s', key[1])
-        exit() #step 24.1
+                # print(f'post-synaptic neuron %s', key[1])
+
+
+        self.Threshold()  # TODO: finish step 38:find placement
+        print(f'TEST: Value post threshold', self.Get_Value())
+        # exit() #step 24.1
 
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, weight, presynapticNeuronValue):
-        print(self.Get_Value())
+        print(f'curr value: %s', self.Get_Value())
         self.Add_To_Value(weight * presynapticNeuronValue)
+        # self.Threshold()
+        print(f'after value: %s', self.Get_Value())
         # exit()
 
     def Determine_Name(self,line):
