@@ -7,9 +7,12 @@ import pyrosim.pyrosim as pyrosim
 import random
 
 from simulation import SIMULATION
+import sys
 
+# directOrGUI =  sys.argv[1]
 simulation = SIMULATION() # create an object -- an instance of the SIMULATION class -- called simulation.
 simulation.Run()
+# simulation.Get_Fitness()
 
 # def random_range(min, max):
 #     return (max - min) * random.random() + min

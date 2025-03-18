@@ -10,6 +10,9 @@ import random
 
 class SIMULATION:
     def __init__(self):
+        # if directOrGUI == "DIRECT":
+        #    self.physicsClient = p.connect(p.DIRECT) # step 73. In SIMULATION's constructor, change p.connect(p.GUI) to p.connect(p.DIRECT).
+        # else:
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
@@ -17,7 +20,7 @@ class SIMULATION:
         p.loadSDF("world.sdf")
         self.planeId = p.loadURDF("plane.urdf")
         self.robot = ROBOT(2,2) # load body urdf ... creates robot in body urdf file.
-        self.world = WORLD() # load plane and world urdf .. i.e place block and checkered ground
+        self.world = WORLD() # load plane and world urdf i.e place block and checkered ground
 
     def Run(self):
         for i in range(1000):
@@ -27,6 +30,10 @@ class SIMULATION:
          self.robot.Act(i)
          time.sleep(c.SLEEP_CONSTANT)
 
+        self.Get_Fitness()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
 def __del__(self):
    p.disconnect()

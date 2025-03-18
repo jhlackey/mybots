@@ -75,7 +75,7 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
         self.Set_Value(0)
-        print('currently-updating neuron', self.Get_Name())
+        # print('currently-updating neuron', self.Get_Name())
         for key in synapses.keys():
             if(key[1] == self.Get_Name()):
                 # print(f'pre-synaptic neuron %s', key[0])
@@ -84,14 +84,14 @@ class NEURON:
 
 
         self.Threshold()  # TODO: finish step 38:find placement
-        print(f'TEST: Value post threshold', self.Get_Value())
+        # print(f'TEST: Value post threshold', self.Get_Value())
         # exit() #step 24.1
 
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, weight, presynapticNeuronValue):
-        print(f'curr value: %s', self.Get_Value())
+        # print(f'curr value: %s', self.Get_Value())
         self.Add_To_Value(weight * presynapticNeuronValue)
         # self.Threshold()
-        print(f'after value: %s', self.Get_Value())
+        # print(f'after value: %s', self.Get_Value())
         # exit()
 
     def Determine_Name(self,line):
@@ -125,7 +125,6 @@ class NEURON:
        print(self.type)
 
     def Print_Value(self):
-
        print(self.value , " " , end="" )
 
     def Search_For_Joint_Name(self,line):

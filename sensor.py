@@ -29,8 +29,8 @@ class SENSOR:
 
         # self.values[timestep] = sensor_value
 
-        if timestep == len(self.values) - 1:
-            print(f"Final values for link {self.linkName}: {self.values}")
+        # if timestep == len(self.values) - 1:
+        #     print(f"Final values for link {self.linkName}: {self.values}")
 
     def Save_Values(self, filepath, arr):
         outFile = open("data/" + self.linkName + "Data.npy", "wb")
