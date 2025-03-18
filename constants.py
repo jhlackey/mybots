@@ -15,6 +15,7 @@ FrontLeg_phaseOffset = 10
 # robotId = p.loadURDF("body.urdf")
 
 numberOfGenerations = 10
+populationSize = 2
 def scale_to_range(arr, min_range, max_range):
       min_val = numpy.min(arr)
       max_val = numpy.max(arr)

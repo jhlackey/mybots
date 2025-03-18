@@ -10,6 +10,7 @@ import random
 
 class SIMULATION:
     def __init__(self, directOrGUI):
+        self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
            self.physicsClient = p.connect(p.DIRECT) # step 73. In SIMULATION's constructor, change p.connect(p.GUI) to p.connect(p.DIRECT).
         else:
@@ -23,12 +24,14 @@ class SIMULATION:
         self.world = WORLD() # load plane and world urdf i.e place block and checkered ground
 
     def Run(self):
+
         for i in range(1000):
          p.stepSimulation()
          self.robot.Sense(i)
          self.robot.Think()
          self.robot.Act(i)
-         time.sleep(c.SLEEP_CONSTANT)
+         if self.directOrGUI == "GUI":
+             time.sleep(c.SLEEP_CONSTANT)
 
         self.Get_Fitness()
 
