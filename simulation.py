@@ -9,11 +9,11 @@ import pyrosim.pyrosim as pyrosim
 import random
 
 class SIMULATION:
-    def __init__(self):
-        # if directOrGUI == "DIRECT":
-        #    self.physicsClient = p.connect(p.DIRECT) # step 73. In SIMULATION's constructor, change p.connect(p.GUI) to p.connect(p.DIRECT).
-        # else:
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, directOrGUI):
+        if directOrGUI == "DIRECT":
+           self.physicsClient = p.connect(p.DIRECT) # step 73. In SIMULATION's constructor, change p.connect(p.GUI) to p.connect(p.DIRECT).
+        else:
+            self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
         p.setGravity(0, 0, -9.8)  # responsible for determining what forces exist in our world. The first, most obvious one to add is gravity.

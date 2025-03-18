@@ -17,11 +17,11 @@ class SOLUTION:
         # exit()
         # pass
 
-    def Evaluate(self):
+    def Evaluate(self, stringGUI):
         self.Create_World()
         self.Create_Robot()
         self.Create_Brain()
-        os.system('python3 simulate.py DIRECT')
+        os.system('python3 simulate.py ' + stringGUI)
 
         fitnessFile = 'fitness.txt'
         f = open(fitnessFile, "r")

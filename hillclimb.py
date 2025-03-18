@@ -7,15 +7,19 @@ class HILL_CLIMBER:
         self.parent = solution.SOLUTION()
 
     def Evolve(self):
-        self.parent.Evaluate()
+        self.parent.Evaluate('GUI')
         for currentGeneration in range(constants.numberOfGenerations):
             self.Evolve_For_One_Generation()
             # exit()
 
+    def Show_Best(self):
+        self.parent.Evaluate('GUI')
+        #Add a new method to HILL_CLIMBER, Show_Best(), which re-evaluates the parent with graphics turned on.
+
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate()
+        self.child.Evaluate('DIRECT')
         self.Select()
         self.Print()
 
