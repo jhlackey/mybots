@@ -8,13 +8,14 @@ import random
 from sensor import SENSOR
 from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
+import os
 
 class ROBOT:
-    def __init__(self, sensors, motors):
+    def __init__(self, sensors, motors, solutionID):
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)  # robotid
          # This will create a neural network (self.nn), and add any neurons and synapses to it from brain.nndf.
-
+        self.solutionID = solutionID
         # testing to find num joints
         # num_joints = p.getNumJoints(self.robotId)
         # print(f"Number of joints in robot: {num_joints}")
@@ -23,7 +24,9 @@ class ROBOT:
         self.Prepare_To_Act()
         # self.motors = {}
 
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf") # Step 39
+        os.system("rm brain" + str(solutionID) + ".nndf")
+
     def Prepare_To_Sense(self):
         self.sensors = {}
         for linkName in pyrosim.linkNamesToIndices:
@@ -64,10 +67,13 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robotId,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        # print(xCoordinateOfLinkZero)
 
-        f = open("fitness.txt", "w")
+        # There is a potential problem here however: search.py may try to read in fitness before simulate.py has finished writing to it.
+        # So, back in robot.py, write fitness into a file called tmpID.txt instead of fitnessID.txt
+        f = open("tmp"+ self.solutionID + ".txt", mode="w")
+        os.system("mv tmp" +  self.solutionID + ".txt fitness" +  self.solutionID + ".txt")
         f.write(str(xCoordinateOfLinkZero))
         f.close()
+        print('executed get_fitness in robot.py')
 
         exit()

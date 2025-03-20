@@ -4,16 +4,18 @@ import random
 import os
 import time
 
+# from simulate import directOrGUI
+
 length = 1
 width = 1
 height = 1
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableId):
         self.weights = numpy.matrix(numpy.random.rand(3,2))
         # print(self.weights)
         self.weights = self.weights * 2 - 1
-
+        self.myID = nextAvailableId
         # print(self.weights)
         # exit()
         # pass
@@ -22,18 +24,44 @@ class SOLUTION:
         self.Create_World()
         self.Create_Robot()
         self.Create_Brain()
-        # os.system('python3 simulate.py ' + directOrGUI)
-        os.system("python3 simulate.py " + directOrGUI + " &")
-        # os.system("start /B python3 simulate.py " + directOrGUI)
 
-        fitnessFile = 'fitness.txt'
-        f = open(fitnessFile, "r")
+        prompt = f"python3.13 simulate.py {directOrGUI} {self.myID} &"
+        os.system(prompt)
+        fitnessFileName = "fitness" + self.myID + ".txt"
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
+
+        f = open(fitnessFileName, "r")
         self.fitness = float(f.read()) # step 49
         f.close()
 
+    def Start_Simulation(self, directOrGUI):
+        self.Create_World()
+        self.Create_Robot()
+        self.Create_Brain()
+
+        prompt = f"python3.13 simulate.py {directOrGUI} {self.myID} &"
+        os.system(prompt)
+
+
+    def Wait_For_Simulation_To_End(self, directOrGUI):
+        # Similarly, cut the statements that read in fitness from a file to Wait_For_Simulation_To_End(), include the while loop.
+        # fitnessFileName = "fitness" + str(self.myID) + ".txt"
+        # while not os.path.exists(fitnessFileName):
+        #     time.sleep(0.01)
+
+        f = open("fitness" + str(self.myID) + ".txt", "r")
+        self.fitness = float(f.read()) # step 49
+        # print(self.fitness)
+        f.close()
+        print(os.path.exists("fitness" + str(self.myID) + ".txt"))
+        print("removing fitness" + str(self.myID)  + "file")
+        os.system("rm fitness" + str(self.myID) + ".txt")
+
     def Create_World(self):
-        while not os.path.exists('world.sdf'):
-            time.sleep(0.01)
+        # while not os.path.exists('world.sdf'):
+        #     time.sleep(0.01)
+
         #  tell pyrosim the name of the file where information about the world you're about to create should be stored. 
         pyrosim.Start_SDF("world.sdf")
         # stores a box with initial position x=0, y=0, z=0.5, and length, width and height all equal to 1 meter, in box.sdf.
@@ -43,8 +71,9 @@ class SOLUTION:
 
         
     def Create_Robot(self):  # step 5, renamed Create_Robot()
-        while not os.path.exists('body.urdf'):
-            time.sleep(0.01)
+        # while not os.path.exists('body.urdf'):
+        #     time.sleep(0.01)
+
         pyrosim.Start_URDF("body.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[1.5, 0, 1.5], size=[length, width, height])
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[1, 0, 1.0])
@@ -58,7 +87,7 @@ class SOLUTION:
     def Create_Brain(self):  # step 5, renamed Create_Robot()
         while not os.path.exists('brain.nndf'):
             time.sleep(0.01)
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
         # motorNames = [3, 4]  # replace with indices
         # sensorNames = [0, 1, 2]
 
@@ -87,3 +116,6 @@ class SOLUTION:
         randomRow = random.randint(0,2)
         randomCol = random.randint(0,1)
         self.weights[randomRow, randomCol] = random.random() * 2 + 1
+
+    def Set_ID(self, nextAvailableId):
+        self.myID = nextAvailableId

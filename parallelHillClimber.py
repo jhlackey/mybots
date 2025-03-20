@@ -5,15 +5,20 @@ import copy
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         self.parents = {}
+        self.nextAvailableID = 0
         # print(constants.populationSize - 1)
         for val in range(constants.populationSize):
-            self.parents[val] = solution.SOLUTION()
+            self.parents[val] = solution.SOLUTION(self.nextAvailableID)
+            self.nextAvailableID += 1
 
 
     def Evolve(self):
         for val in self.parents:
-            self.parents[val].Evaluate('GUI')
+            self.parents[val].Start_Simulation('DIRECT')
 
+        for val in self.parents:
+            self.parents[val].Wait_For_Simulation_To_End('DIRECT')
+            # print(self.parents[val].fitness)
         # self.parent.Evaluate('GUI')
         # for currentGeneration in range(constants.numberOfGenerations):
         #     self.Evolve_For_One_Generation()
@@ -33,6 +38,11 @@ class PARALLEL_HILL_CLIMBER:
 
     def Spawn(self):
         self.child = copy.deepcopy(self.parent)
+        # You will have to assign unique IDs to new child solutions, in PHC's Spawn() method, as well.
+        # You can do so by adding a method, Set_ID(), to SOLUTION.
+        # Make sure to increment self.nextAvailableID after you have set the newly-created child's ID.
+        self.child.setID(self.nextAvailableID)
+        self.nextAvailableID += 1
 
     def Mutate(self):
         self.child.Mutate()

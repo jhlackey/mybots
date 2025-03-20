@@ -9,7 +9,7 @@ import pyrosim.pyrosim as pyrosim
 import random
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
            self.physicsClient = p.connect(p.DIRECT) # step 73. In SIMULATION's constructor, change p.connect(p.GUI) to p.connect(p.DIRECT).
@@ -20,7 +20,7 @@ class SIMULATION:
         p.setGravity(0, 0, -9.8)  # responsible for determining what forces exist in our world. The first, most obvious one to add is gravity.
         p.loadSDF("world.sdf")
         self.planeId = p.loadURDF("plane.urdf")
-        self.robot = ROBOT(2,2) # load body urdf ... creates robot in body urdf file.
+        self.robot = ROBOT(2,2, solutionID) # load body urdf ... creates robot in body urdf file.
         self.world = WORLD() # load plane and world urdf i.e place block and checkered ground
 
     def Run(self):

@@ -10,7 +10,8 @@ from simulation import SIMULATION
 import sys
 
 directOrGUI =  sys.argv[1]
-simulation = SIMULATION(directOrGUI) # create an object -- an instance of the SIMULATION class -- called simulation.
+solutionID = sys.argv[2]
+simulation = SIMULATION(directOrGUI, solutionID) # create an object -- an instance of the SIMULATION class -- called simulation.
 simulation.Run()
 # simulation.Get_Fitness()
 
