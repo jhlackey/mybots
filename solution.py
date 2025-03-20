@@ -43,20 +43,16 @@ class SOLUTION:
         prompt = f"python3.13 simulate.py {directOrGUI} {self.myID} &"
         os.system(prompt)
 
-
     def Wait_For_Simulation_To_End(self, directOrGUI):
-        # Similarly, cut the statements that read in fitness from a file to Wait_For_Simulation_To_End(), include the while loop.
-        # fitnessFileName = "fitness" + str(self.myID) + ".txt"
-        # while not os.path.exists(fitnessFileName):
-        #     time.sleep(0.01)
-
         f = open("fitness" + str(self.myID) + ".txt", "r")
         self.fitness = float(f.read()) # step 49
-        # print(self.fitness)
-        f.close()
-        print(os.path.exists("fitness" + str(self.myID) + ".txt"))
-        print("removing fitness" + str(self.myID)  + "file")
+        print(self.fitness)
+        # f.close()
+
+        # print(os.path.exists("fitness" + str(self.myID) + ".txt"))
+        # # print("removing fitness" + str(self.myID)  + "file")
         os.system("rm fitness" + str(self.myID) + ".txt")
+        # print(os.path.exists("fitness" + str(self.myID) + ".txt"))
 
     def Create_World(self):
         # while not os.path.exists('world.sdf'):
@@ -85,8 +81,9 @@ class SOLUTION:
         # time.sleep(0.01)
 
     def Create_Brain(self):  # step 5, renamed Create_Robot()
-        while not os.path.exists('brain.nndf'):
-            time.sleep(0.01)
+        # while not os.path.exists('brain.nndf'):
+        #     time.sleep(0.01)
+
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
         # motorNames = [3, 4]  # replace with indices
         # sensorNames = [0, 1, 2]

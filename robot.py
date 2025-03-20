@@ -74,6 +74,5 @@ class ROBOT:
         os.system("mv tmp" +  self.solutionID + ".txt fitness" +  self.solutionID + ".txt")
         f.write(str(xCoordinateOfLinkZero))
         f.close()
-        print('executed get_fitness in robot.py')
+        # print('executed get_fitness in robot.py')
 
-        exit()
