@@ -14,8 +14,12 @@ FrontLeg_phaseOffset = 10
 # planeId = p.loadURDF("plane.urdf") # add floor
 # robotId = p.loadURDF("body.urdf")
 
-numberOfGenerations = 10
-populationSize = 10
+numberOfGenerations = 1
+populationSize = 1
+
+numSensorNeurons = 3
+numMotorNeurons = 2
+
 def scale_to_range(arr, min_range, max_range):
       min_val = numpy.min(arr)
       max_val = numpy.max(arr)
