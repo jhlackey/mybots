@@ -30,6 +30,7 @@ class SIMULATION:
          self.robot.Sense(i)
          self.robot.Think()
          self.robot.Act(i)
+
          if self.directOrGUI == "GUI":
              time.sleep(c.SLEEP_CONSTANT)
 

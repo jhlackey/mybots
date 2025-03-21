@@ -46,12 +46,12 @@ class SOLUTION:
     def Wait_For_Simulation_To_End(self, directOrGUI):
         f = open("fitness" + str(self.myID) + ".txt", "r")
         self.fitness = float(f.read()) # step 49
-        print(self.fitness)
+        # print(self.fitness)
         # f.close()
 
         # print(os.path.exists("fitness" + str(self.myID) + ".txt"))
         # # print("removing fitness" + str(self.myID)  + "file")
-        os.system("rm fitness" + str(self.myID) + ".txt")
+        # os.system("rm fitness" + str (self.myID) + ".txt")
         # print(os.path.exists("fitness" + str(self.myID) + ".txt"))
 
     def Create_World(self):

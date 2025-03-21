@@ -6,5 +6,6 @@ for _ in range(1):
     phc = parallelHillClimber.PARALLEL_HILL_CLIMBER()
     phc.Evolve()
     phc.Show_Best()
+
     # os.system("python3 generate.py") #Comment out the existing statements in search.py.
     # os.system("python3 simulate.py")
