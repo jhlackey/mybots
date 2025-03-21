@@ -40,12 +40,18 @@ class SOLUTION:
         self.Create_Robot()
         self.Create_Brain()
 
-        prompt = f"python3.13 simulate.py {directOrGUI} {self.myID} &"
+        prompt = f"python3.13 simulate.py {directOrGUI} {self.myID}"
         os.system(prompt)
 
     def Wait_For_Simulation_To_End(self, directOrGUI):
-        f = open("fitness" + str(self.myID) + ".txt", "r")
-        self.fitness = float(f.read()) # step 49
+        # f = open("fitness" + str(self.myID) + ".txt", "r")
+        # self.fitness = float(f.read()) # step 49
+
+        with open(f"fitness{self.myID}.txt", 'r') as f:
+            self.fitness = float(f.read())
+
+        os.system(f"rm fitness{self.myID}.txt")
+
         # print(self.fitness)
         # f.close()
 
