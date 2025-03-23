@@ -44,6 +44,7 @@ class SOLUTION:
 
         prompt = f"python3.13 simulate.py {directOrGUI} {self.myID}"
         os.system(prompt)
+        # print(prompt) # crash testing
 
     def Wait_For_Simulation_To_End(self, directOrGUI):
         # f = open("fitness" + str(self.myID) + ".txt", "r")
@@ -80,14 +81,16 @@ class SOLUTION:
 
         pyrosim.Start_URDF("body.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[length, width, height])
-        pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0, -0.5, 1.0], jointAxis = "1 0 0")
+        pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0, -0.5, 1.0], jointAxis="1 0 0")
         pyrosim.Send_Cube(name="BackLeg", pos=[0, -0.5, 0], size=[0.2,1,0.2])
-        pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",
-                           position=[0, 0.5, 1.0], jointAxis = "1 0 0")
+        pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute", position=[0, 0.5, 1.0], jointAxis="1 0 0")
         pyrosim.Send_Cube(name="FrontLeg", pos=[0, 0.5, 0], size=[0.2,1,0.2])
-        # pyrosim.Send_Joint(name="Torso_LeftLeg", parent="Torso", child="FrontLeg", type="revolute",
-        #                    position=[-0.5, 0, 1.0], jointAxis="1 0 0")
-        # pyrosim.Send_Cube(name="LeftLeg", pos=[-0.5, 0.5, 0], size=[1, 0.2, 0.2])
+        pyrosim.Send_Joint(name="Torso_LeftLeg", parent="Torso", child="LeftLeg", type="revolute", position=[-0.5, 0, 1.0], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="LeftLeg", pos=[-0.5, 0, 0], size=[1, 0.2, 0.2])
+        pyrosim.Send_Joint(name="Torso_RightLeg", parent="Torso", child="RightLeg", type="revolute",position=[0.5, 0, 1.0], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="RightLeg", pos=[0.5, 0, 0], size=[1, 0.2, 0.2])
+        pyrosim.Send_Joint(name="FrontLeg_FrontLowerLeg", parent="FrontLeg", child="FrontLowerLeg", type="revolute", position=[0, 1, 0], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
         pyrosim.End()
 
 
@@ -108,10 +111,14 @@ class SOLUTION:
         pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
         pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
         pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
-        # pyrosim.Send_Sensor_Neuron(name=3, linkName="LeftLeg")
-        pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
-        # pyrosim.Send_Motor_Neuron(name=6, jointName="Torso_LeftLeg")
+        pyrosim.Send_Sensor_Neuron(name=3, linkName="LeftLeg")
+        pyrosim.Send_Sensor_Neuron(name=4, linkName="RightLeg")
+        pyrosim.Send_Sensor_Neuron(name=5, linkName="FrontLowerLeg")
+        pyrosim.Send_Motor_Neuron(name=6, jointName="Torso_BackLeg")
+        pyrosim.Send_Motor_Neuron(name=7, jointName="Torso_FrontLeg")
+        pyrosim.Send_Motor_Neuron(name=8, jointName="Torso_LeftLeg")
+        pyrosim.Send_Motor_Neuron(name=9, jointName="Torso_RightLeg")
+        pyrosim.Send_Motor_Neuron(name=10, jointName="FrontLeg_FrontLowerLeg")
 
         # print(self.weights.shape)
         for currentRow in range(constants.numSensorNeurons):
@@ -119,7 +126,7 @@ class SOLUTION:
             for currentColumn in range(constants.numMotorNeurons):
                 # print('col', currentColumn)
                 # print(self.weights[currentRow, currentColumn])
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow, currentColumn])
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+constants.numSensorNeurons, weight=self.weights[currentRow, currentColumn])
 
         pyrosim.End()
         # exit()
