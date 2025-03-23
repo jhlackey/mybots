@@ -1,4 +1,6 @@
 import pybullet as p
+
+import constants
 import constants as c
 import numpy
 import pybullet_data
@@ -47,7 +49,7 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names(): # Step 57
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName).encode("utf-8")
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName) * constants.motorJointRange
                 # print(self.motors)
                 self.motors[jointName].Set_Value(self.robotId, desiredAngle)
                 jointName = jointName.decode('utf-8')

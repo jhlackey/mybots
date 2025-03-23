@@ -1,7 +1,7 @@
 import numpy
 
 # CONSTANTS
-SLEEP_CONSTANT = 1/960
+SLEEP_CONSTANT = 1/60
 
 BackLeg_amplitude = numpy.pi / 2
 BackLeg_frequency = 7 * numpy.pi / 100
@@ -14,12 +14,13 @@ FrontLeg_phaseOffset = 10
 # planeId = p.loadURDF("plane.urdf") # add floor
 # robotId = p.loadURDF("body.urdf")
 
-numberOfGenerations = 1
-populationSize = 1
+numberOfGenerations = 10
+populationSize = 10
 
-numSensorNeurons = 5
-numMotorNeurons = 4
+numSensorNeurons = 9
+numMotorNeurons = 8
 
+motorJointRange = 0.2
 def scale_to_range(arr, min_range, max_range):
       min_val = numpy.min(arr)
       max_val = numpy.max(arr)
