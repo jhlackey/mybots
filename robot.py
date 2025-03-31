@@ -66,15 +66,19 @@ class ROBOT:
         # self.nn.Print()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
+
+        # stateOfLinkZero = p.getLinkState(self.robotId,0)
+        # positionOfLinkZero = stateOfLinkZero[0]
+        # xCoordinateOfLinkZero = positionOfLinkZero[0]
 
         # There is a potential problem here however: search.py may try to read in fitness before simulate.py has finished writing to it.
         # So, back in robot.py, write fitness into a file called tmpID.txt instead of fitnessID.txt
         f = open("tmp"+ self.solutionID + ".txt", mode="w")
         os.system("mv tmp" +  self.solutionID + ".txt fitness" +  self.solutionID + ".txt")
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str(xPosition))
         f.close()
         # print('executed get_fitness in robot.py')
 
