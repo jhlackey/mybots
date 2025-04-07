@@ -69,6 +69,7 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
+        zPosition = basePosition[2]
 
         # stateOfLinkZero = p.getLinkState(self.robotId,0)
         # positionOfLinkZero = stateOfLinkZero[0]
@@ -78,7 +79,7 @@ class ROBOT:
         # So, back in robot.py, write fitness into a file called tmpID.txt instead of fitnessID.txt
         f = open("tmp"+ self.solutionID + ".txt", mode="w")
         os.system("mv tmp" +  self.solutionID + ".txt fitness" +  self.solutionID + ".txt")
-        f.write(str(xPosition))
+        f.write(str(zPosition * xPosition))
         f.close()
         # print('executed get_fitness in robot.py')
 

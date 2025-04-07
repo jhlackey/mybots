@@ -1,7 +1,7 @@
 import numpy
 
 # CONSTANTS
-SLEEP_CONSTANT = 1/60
+SLEEP_CONSTANT = 1/120
 
 BackLeg_amplitude = numpy.pi / 2
 BackLeg_frequency = 7 * numpy.pi / 100
@@ -20,7 +20,7 @@ populationSize = 10
 numSensorNeurons = 9
 numMotorNeurons = 8
 
-motorJointRange = 0.2
+motorJointRange = 0.25
 def scale_to_range(arr, min_range, max_range):
       min_val = numpy.min(arr)
       max_val = numpy.max(arr)
