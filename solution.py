@@ -1,5 +1,4 @@
 import numpy
-
 import constants
 import pyrosim.pyrosim as pyrosim
 import random
@@ -69,7 +68,17 @@ class SOLUTION:
         #  tell pyrosim the name of the file where information about the world you're about to create should be stored. 
         pyrosim.Start_SDF("world.sdf")
         # stores a box with initial position x=0, y=0, z=0.5, and length, width and height all equal to 1 meter, in box.sdf.
-        pyrosim.Send_Cube(name="Box", pos=[0, 0, 0.5], size=[50, 4, 1])
+        # pyrosim.Send_Cube(name="Box", pos=[0, 0, 0.5], size=[20, 3 + random.randint(0,2), 1]) # varying width platform
+
+        # attempt to create platform with slats i,e multiple slim platforms
+        pyrosim.Send_Cube(name="Box1", pos=[0, 0, 0.5], size=[5, 4, 1])  # varying width platform
+        pyrosim.Send_Cube(name="Box2", pos=[-5.5, 0, 0.5], size=[5, 4, 1])
+        pyrosim.Send_Cube(name="Box3", pos=[-11, 0, 0.5], size=[5, 4, 1])
+        # pyrosim.Send_Cube(name="Box", pos=[-13, 0, 0.5], size=[6, 4, 1])# varying width platform
+        #
+        # attempt to create L shape
+        # pyrosim.Send_Cube(name="Box", pos=[-3, 0, 0.5], size=[10, 5, 1])
+        # pyrosim.Send_Cube(name="Box", pos=[-11, -2, 0.5], size=[5, 10, 1])
         pyrosim.End()
         # time.sleep(0.01)
 

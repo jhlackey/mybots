@@ -1,5 +1,5 @@
 import pybullet as p
-
+import math
 import constants
 import constants as c
 import numpy
@@ -28,6 +28,7 @@ class ROBOT:
 
         self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf") # Step 39
         os.system("rm brain" + str(solutionID) + ".nndf")
+
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -69,6 +70,7 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
+        yPosition = basePosition[1]
         zPosition = basePosition[2]
 
         # stateOfLinkZero = p.getLinkState(self.robotId,0)
@@ -79,7 +81,10 @@ class ROBOT:
         # So, back in robot.py, write fitness into a file called tmpID.txt instead of fitnessID.txt
         f = open("tmp"+ self.solutionID + ".txt", mode="w")
         os.system("mv tmp" +  self.solutionID + ".txt fitness" +  self.solutionID + ".txt")
-        f.write(str(zPosition * xPosition))
+        fitness =  xPosition if zPosition >= 1.35 else 100
+        fitness = fitness if abs(yPosition) < 2.5 else 100
+        f.write(str(fitness))
+        # f.write(str((2 * zPosition) * xPosition))
         f.close()
         # print('executed get_fitness in robot.py')
 

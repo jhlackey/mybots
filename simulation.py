@@ -24,7 +24,6 @@ class SIMULATION:
         self.world = WORLD() # load plane and world urdf i.e place block and checkered ground
 
     def Run(self):
-
         for i in range(1000):
          p.stepSimulation()
          self.robot.Sense(i)
