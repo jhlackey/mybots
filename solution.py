@@ -73,7 +73,7 @@ class SOLUTION:
         # attempt to create platform with slats i,e multiple slim platforms
         pyrosim.Send_Cube(name="Box1", pos=[0, 0, 0.5], size=[5, 4, 1])  # varying width platform
         pyrosim.Send_Cube(name="Box2", pos=[-5.5, 0, 0.5], size=[5, 4, 1])
-        pyrosim.Send_Cube(name="Box3", pos=[-11, 0, 0.5], size=[5, 4, 1])
+        # pyrosim.Send_Cube(name="Box3", pos=[-11, 0, 0.5], size=[5, 4, 1])
         # pyrosim.Send_Cube(name="Box", pos=[-13, 0, 0.5], size=[6, 4, 1])# varying width platform
         #
         # attempt to create L shape

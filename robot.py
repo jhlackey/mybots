@@ -82,7 +82,7 @@ class ROBOT:
         f = open("tmp"+ self.solutionID + ".txt", mode="w")
         os.system("mv tmp" +  self.solutionID + ".txt fitness" +  self.solutionID + ".txt")
         fitness =  xPosition if zPosition >= 1.35 else 100
-        fitness = fitness if abs(yPosition) < 2.5 else 100
+        fitness = fitness if abs(yPosition) < 2 else 100
         f.write(str(fitness))
         # f.write(str((2 * zPosition) * xPosition))
         f.close()
